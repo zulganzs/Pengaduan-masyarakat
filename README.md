@@ -1,66 +1,113 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Panduan Instalasi Project Pengaduan Masyarakat
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Halo! Ini adalah panduan lengkap untuk menjalankan project ini di komputer kamu. Karena kamu baru belajar, ikuti langkah-langkah di bawah ini pelan-pelan ya.
 
-## About Laravel
+## 1. Persiapan Software (Wajib Install Dulu)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Sebelum mulai, pastikan di komputer kamu sudah terinstall aplikasi-aplikasi ini:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+1.  **XAMPP** (untuk Database MySQL): [Download di sini](https://www.apachefriends.org/download.html).
+    *   *Setelah install, buka XAMPP Control Panel dan klik "Start" pada bagian **Apache** dan **MySQL**.*
+2.  **Composer** (untuk install library PHP): [Download di sini](https://getcomposer.org/download/).
+    *   *Install seperti biasa (next-next saja).*
+3.  **Node.js** (untuk fitur frontend): [Download di sini](https://nodejs.org/).
+    *   *Pilih versi LTS (Recommended).*
+4.  **Git** (opsional, tapi bagus punya): [Download di sini](https://git-scm.com/downloads).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 2. Cara Install Project
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Buka folder project ini. Lalu klik kanan di area kosong dan pilih **"Open in Terminal"** (atau jika pakai Git Bash, pilih "Git Bash Here"). Kalau tidak ada, buka CommandPrompt (CMD) dan arahkan ke folder ini.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Jalankan perintah-perintah berikut satu per satu di terminal:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Langkah 1: Install Library PHP
+Ketik perintah ini dan tekan Enter. Tunggu sampai selesai (agak lama tergantung internet).
+```bash
+composer install
+```
 
-## Laravel Sponsors
+### Langkah 2: Install Library Frontend
+Ketik perintah ini:
+```bash
+npm install
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### Langkah 3: Buat File Konfigurasi
+Kita perlu membuat file `.env`. Caranya copy dari contoh yang sudah ada:
+```bash
+cp .env.example .env
+```
+*(Kalau di Windows CMD biasa perintah `cp` error, bisa copy manual file `.env.example`, lalu paste dan rename file hasil copy-nya menjadi `.env`)*
 
-### Premium Partners
+### Langkah 4: Generate Kunci Aplikasi
+Perintah ini wajib dijalankan sekali saja:
+```bash
+php artisan key:generate
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Langkah 5: Setup Database
+1.  Buka file `.env` yang baru saja kamu buat (bisa pakai Notepad atau VS Code).
+2.  Cari bagian ini:
+    ```
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=pengaduan_masyarakat
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ```
+3.  Pastikan `DB_DATABASE` namanya `pengaduan_masyarakat` (atau nama lain terserah kamu).
+4.  Buka browser, ketik `localhost/phpmyadmin`.
+5.  Klik **"New"** di menu kiri, lalu buat database baru dengan nama yang sama persis dengan di file `.env` tadi (contoh: `pengaduan_masyarakat`).
 
-## Contributing
+### Langkah 6: Isi Database (Migrate & Seeding)
+Ketik perintah ini untuk membuat tabel otomatis dan mengisi data user admin:
+```bash
+php artisan migrate --seed
+```
+*Jika sukses, akan muncul tulisan "Migration table created successfully" dan "Seeding Database".*
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 3. Cara Menjalankan Aplikasi
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Sekarang project sudah siap! Untuk menjalankannya, kamu butuh **dua terminal** (buka satu terminal lagi di folder yang sama).
 
-## Security Vulnerabilities
+**Terminal 1 (untuk menjalankan server PHP):**
+```bash
+php artisan serve
+```
+*Nanti akan muncul alamat web, biasanya: `http://127.0.0.1:8000`*
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Terminal 2 (untuk menjalankan frontend/aset):**
+```bash
+npm run dev
+```
 
-## License
+Sekarang buka browser (Chrome/Edge) dan buka alamat: **http://127.0.0.1:8000**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 4. Akun Login (Demo)
+
+Gunakan akun ini untuk mencoba login:
+
+### Login sebagai Admin (Petugas)
+*   **Email**: `admin@example.com`
+*   **Password**: `password`
+
+### Login sebagai Masyarakat
+*   **Email**: `user@example.com`
+*   **Password**: `password`
+
+---
+
+## Masalah yang Sering Muncul
+
+*   **Error "Vite manifest not found"**: Jangan lupa jalankan `npm run dev` di terminal terpisah.
+*   **Error Database**: Pastikan XAMPP (MySQL) sudah di-Start dan nama database di `.env` sama dengan yang dibuat di phpMyAdmin.
+*   **Terminal macet?**: Jangan tutup terminal yang sedang jalan (`php artisan serve` atau `npm run dev`). Kalau mau berhenti, tekan `Ctrl + C`.
+
+Selamat mencoba coding! Semangat! 🚀
